@@ -59,10 +59,6 @@ export default Quiz;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F4E0B9',
-    height: "100%",
-    paddingTop: StatusBar.currentHeight,
-    padding: 50
   },
   title: {
     padding: 10,
