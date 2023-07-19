@@ -43,7 +43,7 @@ const Answers = ({
 const CorrectAnswer = ({ item }) => {
   const { title, answers: questionAnswer } = item
   if (questionAnswer === undefined) {
-    console.error({ item })
+    return null
   }
   const found = questionAnswer.find(({ isCorrect }) => isCorrect)
   if (found === undefined) {
