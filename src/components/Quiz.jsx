@@ -45,12 +45,11 @@ const Quiz = ({
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{`Topic "${topic}" contains ${questions.length} questions`}</Text>
-      <Text style={styles.title}>{`${topic} questions`}</Text>
+      <Text style={styles.title}>{`${topic} ${questionIndex + 1}/${questions.length}`}</Text>
       <Question
         key={questionIndex}
         data={question}
-        previousQuestion={setPreviousQuestion}
+        previousQuestion={isFirstQuestion ? backAction : setPreviousQuestion}
         nextQuestion={isLastQuestion ? finishQuiz : setNextQuestion}
         isFirstQuestion={isFirstQuestion}
         isLastQuestion={isLastQuestion}

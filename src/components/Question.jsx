@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { ScrollView, StyleSheet, Text, TouchableHighlight, TouchableOpacity, View } from 'react-native';
 
 const Question = ({
@@ -8,23 +9,35 @@ const Question = ({
   isLastQuestion,
   saveChoice
 }) => {
-  const { answers } = data;
+  const { answers, title } = data;
   return (
     <View style={styles.container}>
       <ScrollView style={styles.scrollView}>
+        <Text style={styles.title}>{title}</Text>
         {answers.map((answer) => Option(answer, saveChoice))}
       </ScrollView >
-      {Buttons({ previousQuestion, nextQuestion, isFirstQuestion, isLastQuestion })}
+      <Buttons
+        previousQuestion={previousQuestion}
+        nextQuestion={nextQuestion}
+        isFirstQuestion={isFirstQuestion}
+        isLastQuestion={isLastQuestion}
+      />
     </View>
   )
 }
 
 const Option = ({ choice, isCorrect }, saveChoice) => {
+  const [style, setStyle] = useState(styles.containerAnswer)
+  const onPress = () => {
+    saveChoice(isCorrect)
+    const backgroundColor = isCorrect ? 'lightgreen' : '#EA9E9E'
+    setStyle({ ...style, backgroundColor })
+  }
   return (
     <TouchableOpacity
       key={choice}
-      onPress={() => saveChoice(isCorrect)}
-      style={styles.containerAnswer}
+      onPress={onPress}
+      style={style}
     >
       <Text style={styles.answer}>{choice}</Text>
     </TouchableOpacity>
@@ -34,13 +47,15 @@ const Option = ({ choice, isCorrect }, saveChoice) => {
 const Buttons = ({ previousQuestion, nextQuestion, isFirstQuestion, isLastQuestion }) => {
   return (
     <View style={styles.buttonContainer}>
-      <TouchableHighlight
-        style={styles.button}
-        onPress={previousQuestion}
-        disabled={isFirstQuestion}
-      >
-        <Text style={styles.buttonText}>Previous</Text>
-      </TouchableHighlight>
+      {isFirstQuestion ? null :
+        <TouchableHighlight
+          style={styles.button}
+          onPress={previousQuestion}
+          disabled={isFirstQuestion}
+        >
+          <Text style={styles.buttonText}>Previous</Text>
+        </TouchableHighlight>
+      }
       <TouchableHighlight
         style={styles.button}
         onPress={nextQuestion}
