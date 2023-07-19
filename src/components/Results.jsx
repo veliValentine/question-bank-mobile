@@ -20,20 +20,20 @@ const Results = ({
     <View style={styles.container}>
       <Text style={styles.title}>Results:</Text>
       <Text style={styles.resultText}>{`${correctQuestions} out of ${totalQuestions} correct`}</Text>
-      <Answers questions={questions} />
+      <Answers answers={answers} />
       <BottomButtons onNewQuiz={onNewQuiz} />
     </View>
   )
 }
 
 const Answers = ({
-  questions
+  answers
 }) => {
   return (
     <View style={styles.scrollContainer}>
       <Text>Correct answers:</Text>
       <FlatList
-        data={questions}
+        data={answers}
         renderItem={CorrectAnswer}
       />
     </View>
@@ -41,20 +41,19 @@ const Answers = ({
 }
 
 const CorrectAnswer = ({ item }) => {
-  const { title, answers: questionAnswer } = item
-  if (questionAnswer === undefined) {
-    return null
-  }
+  const { question, correct } = item
+  const { title, answers: questionAnswer = [] } = question
   const found = questionAnswer.find(({ isCorrect }) => isCorrect)
   if (found === undefined) {
     return null
   }
   const { choice } = found
+  const backgroundColor = correct ? 'lightgreen' : '#EA9E9E'
+  const style = { ...styles.questionContainer, backgroundColor }
   return (
     <View
       key={title}
-      style={styles.questionContainer}
-
+      style={style}
     >
       <Text style={styles.questionTitle}>{title}</Text>
       <Text>{choice}</Text>
