@@ -5,8 +5,10 @@ const Welcome = () => {
   const copyrightYears = currentYear === 2023 ? '2023' : `2023-${currentYear}`;
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Welcome to</Text>
-      <Text style={styles.textTitle}>Flying Valentine Question Bank</Text>
+      <View>
+        <Text style={styles.text}>Welcome to</Text>
+        <Text style={styles.textTitle}>Flying Valentine Question Bank</Text>
+      </View>
       <Text style={styles.textCopyright}>{`Copyright ${copyrightYears} by N.J. Valentine`}</Text>
     </View>
   )
@@ -16,11 +18,10 @@ export default Welcome;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: '#F4E0B9',
-    height: "100%",
-    padding: 50,
-    justifyContent: 'center',
+    display: 'flex',
+    flex: 1,
+    justifyContent: 'space-around',
     flexDirection: 'column',
     padding: 50
   },

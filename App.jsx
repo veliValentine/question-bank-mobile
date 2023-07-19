@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
+import { Alert, BackHandler, Pressable, StyleSheet } from 'react-native';
 import Welcome from './src/Welcome';
 import Main from './src/Main';
-import { Alert, BackHandler } from 'react-native';
 
 const App = () => {
   const [showWelcome, setShowWelcome] = useState(true);
@@ -34,7 +34,12 @@ const App = () => {
 
   if (showWelcome) {
     return (
-      <Welcome />
+      <Pressable
+        style={styles.welcomeButtonContainer}
+        onPress={() => setShowWelcome(false)}
+      >
+        <Welcome />
+      </Pressable>
     )
   }
   return (
@@ -43,3 +48,10 @@ const App = () => {
 };
 
 export default App;
+
+const styles = StyleSheet.create({
+  welcomeButtonContainer: {
+    backgroundColor: '#F4E0B9',
+    height: "100%",
+  },
+});
