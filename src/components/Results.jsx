@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
+import { FlatList, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 
 const Results = ({
   results,
@@ -25,16 +25,24 @@ const Answers = ({
   return (
     <View style={styles.scrollContainer}>
       <Text>Correct answers:</Text>
-      <ScrollView>
-        {questions.map(CorrectAnswer)}
-      </ScrollView>
+      <FlatList
+        data={questions}
+        renderItem={CorrectAnswer}
+      />
     </View>
   )
 }
 
-const CorrectAnswer = (question) => {
-  const { title, answers: questionAnswer } = question
-  const { choice } = questionAnswer.find(({ isCorrect }) => isCorrect)
+const CorrectAnswer = ({ item }) => {
+  const { title, answers: questionAnswer } = item
+  if (questionAnswer === undefined) {
+    console.error({ item })
+  }
+  const found = questionAnswer.find(({ isCorrect }) => isCorrect)
+  if (found === undefined) {
+    return null
+  }
+  const { choice } = found
   return (
     <View
       key={title}
