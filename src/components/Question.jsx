@@ -8,11 +8,10 @@ const Question = ({
   isLastQuestion,
   saveChoice
 }) => {
-  const { title, answers } = data;
+  const { answers } = data;
   return (
     <View style={styles.container}>
       <ScrollView style={styles.scrollView}>
-        <Text style={styles.title}>{title}</Text>
         {answers.map((answer) => Option(answer, saveChoice))}
       </ScrollView >
       {Buttons({ previousQuestion, nextQuestion, isFirstQuestion, isLastQuestion })}
