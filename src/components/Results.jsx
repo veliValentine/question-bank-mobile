@@ -31,7 +31,7 @@ const Answers = ({
 }) => {
   return (
     <View style={styles.scrollContainer}>
-      <Text>Correct answers:</Text>
+      <Text>Answered questions:</Text>
       <FlatList
         data={answers}
         renderItem={CorrectAnswer}
