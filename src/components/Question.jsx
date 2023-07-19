@@ -14,7 +14,7 @@ const Question = ({
       <ScrollView style={styles.scrollView}>
         <Text style={styles.title}>{title}</Text>
         {answers.map((answer) => (
-          <Option answer={answer} saveChoice={saveChoice} chosen={chosen} />
+          <Option key={`title-${answer.choice}`} answer={answer} saveChoice={saveChoice} chosen={chosen} />
         ))}
       </ScrollView >
       <Buttons
