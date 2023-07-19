@@ -1,4 +1,4 @@
-import { StatusBar, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import Quiz from './components/Quiz';
 import topics from './topics.json'
 import { useState } from 'react';
@@ -60,7 +60,6 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: '#F4E0B9',
     height: "100%",
-    paddingTop: StatusBar.currentHeight,
     padding: 50
   }
 });
