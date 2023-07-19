@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { ScrollView, StyleSheet, Text, TouchableHighlight, TouchableOpacity, View } from 'react-native';
 
 const Question = ({
@@ -9,12 +8,14 @@ const Question = ({
   isLastQuestion,
   saveChoice
 }) => {
-  const { answers, title } = data;
+  const { answers, title, chosen } = data;
   return (
     <View style={styles.container}>
       <ScrollView style={styles.scrollView}>
         <Text style={styles.title}>{title}</Text>
-        {answers.map((answer) => Option(answer, saveChoice))}
+        {answers.map((answer) => (
+          <Option answer={answer} saveChoice={saveChoice} chosen={chosen} />
+        ))}
       </ScrollView >
       <Buttons
         previousQuestion={previousQuestion}
@@ -26,18 +27,22 @@ const Question = ({
   )
 }
 
-const Option = ({ choice, isCorrect }, saveChoice) => {
-  const [style, setStyle] = useState(styles.containerAnswer)
+const Option = ({ answer, saveChoice, chosen }) => {
+  const { choice, isCorrect } = answer
+  let backgroundColor = styles.containerAnswer.backgroundColor
+  if (choice === chosen) {
+    backgroundColor = isCorrect ? 'lightgreen' : '#EA9E9E'
+  }
+  let containerStyle = { ...styles.containerAnswer, backgroundColor }
+
   const onPress = () => {
-    saveChoice(isCorrect)
-    const backgroundColor = isCorrect ? 'lightgreen' : '#EA9E9E'
-    setStyle({ ...style, backgroundColor })
+    saveChoice(isCorrect, choice)
   }
   return (
     <TouchableOpacity
       key={choice}
       onPress={onPress}
-      style={style}
+      style={containerStyle}
     >
       <Text style={styles.answer}>{choice}</Text>
     </TouchableOpacity>

@@ -38,9 +38,10 @@ const Quiz = ({
     setQuestionIndex(questionIndex + 1)
   }
 
-  const saveChoice = (isCorrectChoice) => {
+  const saveChoice = (isCorrectChoice, choice) => {
     const data = { question, correct: isCorrectChoice }
     updateAnswer(questionIndex, data)
+    setQuestion({ ...question, chosen: choice })
   }
 
   return (
