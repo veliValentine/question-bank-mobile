@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, StatusBar } from 'react-native';
+import { StyleSheet, Text, View, BackHandler } from 'react-native';
 import { useEffect, useState } from 'react';
 import Question from './Question';
 
@@ -6,10 +6,16 @@ const Quiz = ({
   topic,
   questions,
   finishQuiz,
-  updateAnswer
+  updateAnswer,
+  backAction,
 }) => {
   const [questionIndex, setQuestionIndex] = useState(0)
   const [question, setQuestion] = useState(questions[questionIndex])
+
+  useEffect(() => {
+    const backActionResponse = BackHandler.addEventListener('hardwareBackPress', backAction)
+    return () => backActionResponse.remove()
+  }, [])
 
   useEffect(() => {
     setQuestion(questions[questionIndex])

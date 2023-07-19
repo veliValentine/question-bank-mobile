@@ -1,13 +1,20 @@
-import { FlatList, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
+import { useEffect } from 'react';
+import { BackHandler, FlatList, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 
 const Results = ({
   results,
   questions,
-  onNewQuiz
+  onNewQuiz,
+  backAction
 }) => {
   const answers = Object.values(results)
   const totalQuestions = questions.length
   const correctQuestions = answers.filter(({ correct }) => correct).length
+
+  useEffect(() => {
+    const backActionResponse = BackHandler.addEventListener('hardwareBackPress', backAction)
+    return () => backActionResponse.remove()
+  }, [])
 
   return (
     <View style={styles.container}>

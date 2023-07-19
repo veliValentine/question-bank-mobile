@@ -17,6 +17,11 @@ const Main = () => {
   const [topic] = useState(allTopics[0]);
   const [questions] = useState(topics[topic]?.questions ?? [])
 
+  const goMainMenu = () => {
+    onNewQuiz()
+    return true
+  }
+
   const updateAnswer = (index, data) => {
     const newAnswers = { ...answers, [index]: data }
     setAnswers(newAnswers)
@@ -42,6 +47,7 @@ const Main = () => {
           results={answers}
           questions={questions}
           onNewQuiz={onNewQuiz}
+          backAction={goMainMenu}
         />
       </View>
     )
@@ -55,6 +61,7 @@ const Main = () => {
           questions={questions}
           finishQuiz={finishQuiz}
           updateAnswer={updateAnswer}
+          backAction={goMainMenu}
         />
       </View>
     )
@@ -72,7 +79,7 @@ const MainMenu = ({ startQuiz }) => {
     <View style={styles.mainMenuContainer}>
       <Button
         onPress={startQuiz}
-        title='Start DA-42 quiz'
+        title='Start new DA-42 quiz'
       />
     </View>
   )
