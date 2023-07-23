@@ -1,7 +1,7 @@
-import { Button, StyleSheet, Text, View } from 'react-native';
+import { Button, Pressable, StyleSheet, Text, View } from 'react-native';
 import Quiz from './components/Quiz';
 import topics from './topics.json'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Results from './components/Results';
 
 const PAGES = {
@@ -14,8 +14,12 @@ const Main = () => {
   const [page, setPage] = useState(PAGES.MAIN_MENU)
   const [answers, setAnswers] = useState({})
   const allTopics = Object.keys(topics)
-  const [topic] = useState(allTopics[0]);
-  const [questions] = useState(topics[topic]?.questions ?? [])
+  const [topic, setTopic] = useState('');
+  const [questions, setQuestions] = useState([])
+
+  useEffect(() => {
+    setQuestions(topics[topic]?.questions ?? [])
+  }, [topic])
 
   const goMainMenu = () => {
     onNewQuiz()
@@ -25,6 +29,10 @@ const Main = () => {
   const updateAnswer = (index, data) => {
     const newAnswers = { ...answers, [index]: data }
     setAnswers(newAnswers)
+  }
+
+  const changeTopic = (topic) => {
+    setTopic(topic ?? '')
   }
 
   const startQuiz = () => {
@@ -69,18 +77,41 @@ const Main = () => {
 
   return (
     <View style={styles.container}>
-      <MainMenu startQuiz={startQuiz} />
+      <MainMenu
+        topics={allTopics}
+        topic={topic ?? ''}
+        selectTopic={changeTopic}
+        startQuiz={startQuiz} />
     </View>
   )
 }
 
-const MainMenu = ({ startQuiz }) => {
+const MainMenu = ({ topics, topic, selectTopic, startQuiz }) => {
   return (
     <View style={styles.mainMenuContainer}>
-      <Button
-        onPress={startQuiz}
-        title='Start new DA-42 quiz'
-      />
+      <View>
+        <Text style={styles.title}>Select Questions Topic:</Text>
+        {topics.map((t) => (
+          <Pressable
+            key={`select-topic-${t}`}
+            onPress={() => selectTopic(t)}
+            style={{
+              ...styles.selectTopicButton,
+              backgroundColor: topic === t ? '#adadad' : styles.selectTopicButton.backgroundColor
+            }}
+          >
+            <Text>{`${t.toUpperCase()}`}</Text>
+          </Pressable>
+        ))}
+      </View>
+      <View>
+        {topic === '' ? null :
+          <Button
+            onPress={startQuiz}
+            title={`Start new '${topic}' quiz`}
+          />
+        }
+      </View>
     </View>
   )
 }
@@ -97,6 +128,16 @@ const styles = StyleSheet.create({
     padding: 10,
     display: 'flex',
     flex: 1,
-    justifyContent: 'center'
+    justifyContent: 'space-evenly',
+    flexDirection: 'column',
+  },
+  title: {
+    fontWeight: 'bold',
+  },
+  selectTopicButton: {
+    backgroundColor: '#D3D3D3',
+    padding: 10,
+    borderRadius: 10,
+    margin: 5,
   }
 });
