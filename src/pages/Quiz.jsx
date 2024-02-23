@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, BackHandler } from 'react-native';
 import { useEffect, useState } from 'react';
-import Question from './Question';
+import Question from '../components/Question';
 
 const Quiz = ({
   topic,
