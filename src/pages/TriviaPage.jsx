@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { BackHandler, Button, FlatList, StyleSheet, Text, View } from 'react-native';
+import { BackHandler, Button, Dimensions, FlatList, StyleSheet, Text, View } from 'react-native';
 import TriviaQuestion from '../components/TriviaQuestion';
 
 const TriviaPage = ({
@@ -15,12 +15,14 @@ const TriviaPage = ({
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{`${topic.toUpperCase()} ${questions.length} questions`}</Text>
-      <FlatList
-        data={questions}
-        renderItem={({ item }) => <TriviaQuestion question={item} />}
-        ListFooterComponent={<FooterComponent backAction={backAction} />}
-        initialNumToRender={10}
-      />
+      <View style={{ ...styles.listContainer, height: Dimensions.get('window').height * 0.6 }}>
+        <FlatList
+          data={questions}
+          renderItem={({ index, item }) => <TriviaQuestion index={index} question={item} />}
+          initialNumToRender={10}
+        />
+      </View>
+      <FooterComponent backAction={backAction} />
     </View>
   )
 }
@@ -51,6 +53,12 @@ const styles = StyleSheet.create({
   text: {
     padding: 10,
     color: 'white',
+  },
+  listContainer: {
+    borderWidth: 1,
+    borderColor: 'white',
+    borderRadius: 5,
+    padding: 1,
   },
   listFooterContainer: {
     margin: 10,
