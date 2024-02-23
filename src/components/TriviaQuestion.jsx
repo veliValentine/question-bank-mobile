@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react';
 import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
 
 const TriviaQuestion = ({
-  question
+  question,
+  index = undefined
 }) => {
   const [answer, setAnswer] = useState('');
   const [isCorrect, setIsCorrect] = useState(false)
@@ -28,9 +29,11 @@ const TriviaQuestion = ({
     setNotification(isCorrect ? 'Correct' : 'Incorrect')
   }
 
+  const titleNumber = index !== undefined ? `${index + 1}. ` : ''
+
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{title}</Text>
+      <Text style={styles.title}>{`${titleNumber}${title}`}</Text>
       <TextInput
         style={styles.input}
         onChangeText={handelUserInput}
