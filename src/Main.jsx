@@ -4,6 +4,7 @@ import MultipleChoice from './pages/MultipleChoice';
 import MultipleChoiceResults from './pages/MultipleChoiceResults';
 import MainMenu from './pages/MainMenu';
 import topics from './topics.json'
+import TriviaPage from './pages/TriviaPage';
 
 const PAGES = {
   MAIN_MENU: 'main_menu',
@@ -58,9 +59,15 @@ const Main = () => {
   const onNewQuiz = () => {
     setAnswers({})
     setPage(PAGES.MAIN_MENU)
+    setTopic('')
   }
 
-  if (PAGES.QUIZ === page && QUIZ_TYPES.MULTIPLE_CHOICE == quizType) {
+  const isQuizPage = PAGES.QUIZ === page
+  const isResultsPage = PAGES.RESULTS === page
+
+  const isMultipleChoiceQuiz = QUIZ_TYPES.MULTIPLE_CHOICE == quizType
+
+  if (isMultipleChoiceQuiz && isQuizPage) {
     return (
       <View style={styles.container}>
         <MultipleChoice
@@ -74,11 +81,26 @@ const Main = () => {
     )
   }
 
-  if (PAGES.RESULTS === page && QUIZ_TYPES.MULTIPLE_CHOICE == quizType) {
+  if (isMultipleChoiceQuiz && isResultsPage) {
     return (
       <View style={styles.container}>
         <MultipleChoiceResults
           results={answers}
+          questions={questions}
+          onNewQuiz={onNewQuiz}
+          backAction={goMainMenu}
+        />
+      </View>
+    )
+  }
+
+  const isTriviaQuiz = QUIZ_TYPES.TRIVIA == quizType
+
+  if (isTriviaQuiz && isQuizPage) {
+    return (
+      <View style={styles.container}>
+        <TriviaPage
+          topic={topic}
           questions={questions}
           onNewQuiz={onNewQuiz}
           backAction={goMainMenu}
