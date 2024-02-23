@@ -31,8 +31,12 @@ const Main = () => {
     setAnswers(newAnswers)
   }
 
-  const changeTopic = (topic) => {
-    setTopic(topic ?? '')
+  const changeTopic = (newTopic) => {
+    if (newTopic === topic) {
+      setTopic('')
+      return
+    }
+    setTopic(newTopic ?? '')
   }
 
   const startQuiz = () => {
@@ -97,7 +101,8 @@ const MainMenu = ({ topics, topic, selectTopic, startQuiz }) => {
             onPress={() => selectTopic(t)}
             style={{
               ...styles.selectTopicButton,
-              backgroundColor: topic === t ? '#adadad' : styles.selectTopicButton.backgroundColor
+              borderWidth: 5,
+              borderColor: topic === t ? 'white' : styles.container.backgroundColor,
             }}
           >
             <Text>{`${t.toUpperCase()}`}</Text>
@@ -105,7 +110,7 @@ const MainMenu = ({ topics, topic, selectTopic, startQuiz }) => {
         ))}
       </View>
       <View>
-        {topic === '' ? null :
+        {topic === '' ? <Button title="" color={styles.container.backgroundColor} /> :
           <Button
             onPress={startQuiz}
             title={`Start new '${topic}' quiz`}
@@ -120,7 +125,7 @@ export default Main;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#F4E0B9',
+    backgroundColor: '#000000',
     height: "100%",
     padding: 50
   },
@@ -133,6 +138,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontWeight: 'bold',
+    color: 'white'
   },
   selectTopicButton: {
     backgroundColor: '#D3D3D3',

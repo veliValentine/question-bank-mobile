@@ -68,11 +68,11 @@ const styles = StyleSheet.create({
   },
   title: {
     padding: 10,
-    color: 'black',
+    color: 'white',
     fontWeight: 'bold'
   },
   text: {
     padding: 10,
-    color: 'black',
+    color: 'white',
   },
 });

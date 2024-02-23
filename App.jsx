@@ -51,7 +51,7 @@ export default App;
 
 const styles = StyleSheet.create({
   welcomeButtonContainer: {
-    backgroundColor: '#F4E0B9',
+    backgroundColor: '#000000',
     height: "100%",
   },
 });

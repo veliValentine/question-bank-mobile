@@ -7,7 +7,8 @@ const Welcome = () => {
     <View style={styles.container}>
       <View>
         <Text style={styles.text}>Welcome to</Text>
-        <Text style={styles.textTitle}>Flying Valentine Question Bank</Text>
+        <Text style={styles.textTitle}>Flying Valentine</Text>
+        <Text style={styles.textTitle}>Question Bank</Text>
       </View>
       <Text style={styles.textCopyright}>{`Copyright ${copyrightYears} by N.J. Valentine`}</Text>
     </View>
@@ -18,25 +19,27 @@ export default Welcome;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#F4E0B9',
+    backgroundColor: '#000000',
     display: 'flex',
     flex: 1,
-    justifyContent: 'space-around',
+    justifyContent: 'flex-end',
     flexDirection: 'column',
     padding: 50
   },
   text: {
     padding: 10,
-    color: 'black',
+    color: 'white',
   },
   textTitle: {
     padding: 10,
-    color: 'black',
-    fontWeight: 'bold'
+    color: 'white',
+    fontWeight: 'bold',
+    fontSize: 30
   },
   textCopyright: {
     padding: 10,
-    color: 'black',
-    marginTop: 200
+    color: 'white',
+    marginTop: 200,
+    fontSize: 10,
   },
 });
