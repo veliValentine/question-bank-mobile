@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { BackHandler, FlatList, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 
-const Results = ({
+const MultipleChoiceResults = ({
   results,
   questions,
   onNewQuiz,
@@ -74,7 +74,7 @@ const BottomButtons = ({
   </View>
 )
 
-export default Results;
+export default MultipleChoiceResults;
 
 const styles = StyleSheet.create({
   container: {

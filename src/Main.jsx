@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
-import Quiz from './pages/Quiz';
-import topics from './topics.json'
-import Results from './pages/Results';
+import MultipleChoice from './pages/MultipleChoice';
+import MultipleChoiceResults from './pages/MultipleChoiceResults';
 import MainMenu from './pages/MainMenu';
+import topics from './topics.json'
 
 const PAGES = {
   MAIN_MENU: 'main_menu',
@@ -11,12 +11,19 @@ const PAGES = {
   RESULTS: 'results'
 }
 
+const QUIZ_TYPES = {
+  MULTIPLE_CHOICE: 0,
+  TRIVIA: 1
+}
+
 const Main = () => {
   const [page, setPage] = useState(PAGES.MAIN_MENU)
   const [answers, setAnswers] = useState({})
-  const allTopics = Object.keys(topics)
   const [topic, setTopic] = useState('')
   const [questions, setQuestions] = useState([])
+
+  const allTopics = Object.keys(topics)
+  const quizType = topics[topic]?.type ?? null
 
   useEffect(() => {
     setQuestions(topics[topic]?.questions ?? [])
@@ -53,27 +60,27 @@ const Main = () => {
     setPage(PAGES.MAIN_MENU)
   }
 
-  if (page === PAGES.RESULTS) {
+  if (PAGES.QUIZ === page && QUIZ_TYPES.MULTIPLE_CHOICE == quizType) {
     return (
       <View style={styles.container}>
-        <Results
-          results={answers}
+        <MultipleChoice
+          topic={topic.toUpperCase()}
           questions={questions}
-          onNewQuiz={onNewQuiz}
+          finishQuiz={finishQuiz}
+          updateAnswer={updateAnswer}
           backAction={goMainMenu}
         />
       </View>
     )
   }
 
-  if (page === PAGES.QUIZ) {
+  if (PAGES.RESULTS === page && QUIZ_TYPES.MULTIPLE_CHOICE == quizType) {
     return (
       <View style={styles.container}>
-        <Quiz
-          topic={topic.toUpperCase()}
+        <MultipleChoiceResults
+          results={answers}
           questions={questions}
-          finishQuiz={finishQuiz}
-          updateAnswer={updateAnswer}
+          onNewQuiz={onNewQuiz}
           backAction={goMainMenu}
         />
       </View>

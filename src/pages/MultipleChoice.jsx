@@ -2,7 +2,7 @@ import { StyleSheet, Text, View, BackHandler } from 'react-native';
 import { useEffect, useState } from 'react';
 import Question from '../components/Question';
 
-const Quiz = ({
+const MultipleChoice = ({
   topic,
   questions,
   finishQuiz,
@@ -60,7 +60,7 @@ const Quiz = ({
   );
 }
 
-export default Quiz;
+export default MultipleChoice;
 
 const styles = StyleSheet.create({
   container: {
