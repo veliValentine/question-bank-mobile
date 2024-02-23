@@ -10,3 +10,6 @@ Application is build using [expo go](https://expo.dev/) and react native.
 4. Run command `npm start`
 
 It is easier to see the result with Expo Go android application.
+
+## Build AAB
+Run `npm run build:android`
